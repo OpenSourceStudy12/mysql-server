@@ -1,0 +1,41 @@
+create database studb1;     //创建数据库
+use studb1;
+create table stuinfo  ( id int primary key not null auto_increment, name char(20), birthday date, phone char(12) default '10000');    //创建主表
+create table stuscore ( num int primary key auto_increment, math int, english int, n int, sid int, foreign key (sid) references stuinfo (id) on delete cascade on update cascade);      //创建附属表
+insert into stuinfo values(1001,'aaa','1990-01-01','123456');    //添加数据
+insert into stuinfo values(1002,'qqq','1990-01-01','3333456');
+insert into stuinfo values(1003,'eee','1990-01-01','7733456');
+
+insert into stuscore values(1,78,90,1,1001);
+insert into stuscore values(2,56,89,2,1001);
+insert into stuscore values(3,86,99,3,1001);
+ insert into stuscore values(4,66,79,1,1002);
+ insert into stuscore values(5,86,59,2,1002);
+insert into stuscore values(6,56,79,1,1003);
+
+update stuinfo set id=123 where id=1003;       //修改，主表和附属表里同时修改
+delete from stuinfo where id=1002;     //删除，主表和附属表的相关内容同时删除
+
+
+mysql> select * from stuinfo;
++------+------+------------+---------+
+| id   | name | birthday   | phone   |
++------+------+------------+---------+
+|  123 | eee  | 1990-01-01 | 7733456 |
+| 1001 | aaa  | 1990-01-01 | 123456  |
++------+------+------------+---------+
+2 rows in set (0.00 sec)
+
+
+mysql> select * from stuscore;
++-----+------+---------+------+------+
+| num | math | english | n    | sid  |
++-----+------+---------+------+------+
+|   1 |   78 |      90 |    1 | 1001 |
+|   2 |   56 |      89 |    2 | 1001 |
+|   3 |   86 |      99 |    3 | 1001 |
+|   6 |   56 |      79 |    1 |  123 |
++-----+------+---------+------+------+
+4 rows in set (0.00 sec)
+
+
